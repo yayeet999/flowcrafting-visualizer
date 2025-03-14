@@ -4,7 +4,8 @@ import useStore from '../lib/store';
 import { renderMermaid, initializeMermaid } from '../lib/mermaid-utils';
 import { Button } from '../components/ui/button';
 import { Slider } from '../components/ui/slider';
-import { ZoomIn, ZoomOut, Maximize, Sun, Moon } from 'lucide-react';
+import { ZoomIn, ZoomOut, Maximize2, Sun, Moon, Download } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../components/ui/tooltip';
 
 interface PreviewProps {
   className?: string;
@@ -92,6 +93,23 @@ const Preview: React.FC<PreviewProps> = ({ className }) => {
     setIsDragging(false);
   };
 
+  const handleExportSVG = () => {
+    const svgElement = containerRef.current?.querySelector('svg');
+    if (svgElement) {
+      const svgData = new XMLSerializer().serializeToString(svgElement);
+      const blob = new Blob([svgData], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'diagram.svg';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+  };
+
   // Clean up event listeners
   useEffect(() => {
     const handleMouseUpGlobal = () => setIsDragging(false);
@@ -104,30 +122,63 @@ const Preview: React.FC<PreviewProps> = ({ className }) => {
 
   return (
     <div className={`flex flex-col h-full ${className}`}>
-      <div className="flex items-center justify-between p-2 bg-secondary rounded-t-lg">
-        <div className="text-sm font-medium">Preview</div>
-        <div className="flex items-center space-x-2">
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={toggleTheme}
-            className="transition-transform active:scale-95"
-          >
-            {isDarkTheme ? <Sun size={16} /> : <Moon size={16} />}
-          </Button>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={resetView}
-            className="transition-transform active:scale-95"
-          >
-            <Maximize size={16} />
-          </Button>
+      <div className="flex items-center justify-between p-3 bg-muted/50 rounded-t-xl border-b border-border/30">
+        <div className="text-sm font-medium text-foreground/80">Preview</div>
+        <div className="flex items-center space-x-1">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={toggleTheme}
+                  className="size-8 text-muted-foreground hover:text-foreground"
+                >
+                  {isDarkTheme ? <Sun size={16} /> : <Moon size={16} />}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{isDarkTheme ? 'Light mode' : 'Dark mode'}</p>
+              </TooltipContent>
+            </Tooltip>
+            
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={resetView}
+                  className="size-8 text-muted-foreground hover:text-foreground"
+                >
+                  <Maximize2 size={16} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Reset view</p>
+              </TooltipContent>
+            </Tooltip>
+            
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={handleExportSVG}
+                  className="size-8 text-muted-foreground hover:text-foreground"
+                >
+                  <Download size={16} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Export as SVG</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </div>
       
       <div 
-        className={`flex-1 overflow-hidden border border-border rounded-b-lg bg-card relative ${
+        className={`flex-1 overflow-hidden border-x border-border/30 relative ${
           isDarkTheme ? 'bg-zinc-900 text-white' : 'bg-white text-zinc-900'
         }`}
         onMouseDown={handleMouseDown}
@@ -155,13 +206,13 @@ const Preview: React.FC<PreviewProps> = ({ className }) => {
         )}
       </div>
       
-      <div className="flex items-center justify-between mt-2 px-2">
+      <div className="flex items-center justify-between p-3 bg-card/50 border-t border-border/30 rounded-b-xl">
         <Button 
-          variant="ghost" 
+          variant="outline" 
           size="icon" 
           onClick={handleZoomOut}
           disabled={zoomLevel <= 0.1}
-          className="transition-transform active:scale-95"
+          className="size-8 text-muted-foreground hover:text-foreground"
         >
           <ZoomOut size={16} />
         </Button>
@@ -172,15 +223,15 @@ const Preview: React.FC<PreviewProps> = ({ className }) => {
           max={200}
           step={5}
           onValueChange={handleZoomChange}
-          className="w-48 mx-2"
+          className="w-48 mx-4"
         />
         
         <Button 
-          variant="ghost" 
+          variant="outline" 
           size="icon" 
           onClick={handleZoomIn}
           disabled={zoomLevel >= 2}
-          className="transition-transform active:scale-95"
+          className="size-8 text-muted-foreground hover:text-foreground"
         >
           <ZoomIn size={16} />
         </Button>

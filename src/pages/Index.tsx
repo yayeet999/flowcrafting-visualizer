@@ -19,13 +19,14 @@ const Index = () => {
     <div className="flex flex-col h-screen w-screen overflow-hidden bg-background">
       <Header />
       
-      <div className="flex flex-1 overflow-hidden p-4">
-        <div className="flex flex-col w-60 mr-4 overflow-hidden animate-slide-in">
-          <TemplateLibrary className="flex-1 shadow-sm rounded-lg overflow-hidden border border-border" />
+      <div className="flex flex-1 overflow-hidden p-6">
+        <div className="flex flex-col w-72 mr-6 overflow-hidden animate-slide-in">
+          <h2 className="text-lg font-semibold mb-3 text-foreground/90">Template Library</h2>
+          <TemplateLibrary className="flex-1 shadow-md rounded-xl overflow-hidden border border-border/40 bg-card/50" />
         </div>
         
         <Layout 
-          className="flex-1 animate-scale-in shadow-sm rounded-lg overflow-hidden border border-border"
+          className="flex-1 animate-scale-in shadow-md rounded-xl overflow-hidden border border-border/40"
           left={
             <Editor className="h-full" />
           }

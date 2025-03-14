@@ -65,8 +65,8 @@ const Layout: React.FC<LayoutProps> = ({ left, right, className }) => {
       {/* Resizer */}
       <div 
         className={cn(
-          "resizer flex-shrink-0 z-10 h-full cursor-col-resize hover:bg-primary/20", 
-          isResizing && "bg-primary/40"
+          "resizer flex-shrink-0 z-10 h-full w-1.5 cursor-col-resize mx-1 rounded-full hover:bg-primary/50 transition-colors", 
+          isResizing ? "bg-primary/60" : "bg-border/60"
         )}
         onMouseDown={handleMouseDown}
       />

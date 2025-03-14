@@ -14,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 210 100% 45%;
+    --primary: 210 100% 50%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96%;
@@ -126,7 +126,11 @@
 
   /* Split pane resizer */
   .resizer {
-    @apply w-1 bg-border hover:bg-primary/20 cursor-col-resize 
-           active:bg-primary/40 transition-colors;
+    @apply transition-colors;
+  }
+
+  /* Mermaid diagram styling */
+  .mermaid-container svg {
+    @apply drop-shadow-sm rounded-md;
   }
 }

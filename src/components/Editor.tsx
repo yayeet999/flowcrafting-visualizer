@@ -5,6 +5,7 @@ import useStore from '../lib/store';
 import { Button } from '../components/ui/button';
 import { validateMermaidCode } from '../lib/mermaid-utils';
 import { toast } from '../components/ui/use-toast';
+import { Play } from 'lucide-react';
 
 interface EditorProps {
   className?: string;
@@ -15,7 +16,7 @@ const Editor: React.FC<EditorProps> = ({ className }) => {
   const editorRef = useRef<any>(null);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleEditorDidMount = (editor: any) => {
+  const handleEditorDidMount = (editor: any, monaco: any) => {
     editorRef.current = editor;
     
     // Set up auto-focus
@@ -75,17 +76,18 @@ const Editor: React.FC<EditorProps> = ({ className }) => {
 
   return (
     <div className={`flex flex-col h-full ${className}`}>
-      <div className="flex items-center justify-between p-2 bg-secondary rounded-t-lg">
-        <div className="text-sm font-medium">Mermaid Editor</div>
+      <div className="flex items-center justify-between p-3 bg-muted/50 rounded-t-xl border-b border-border/30">
+        <div className="text-sm font-medium text-foreground/80">Mermaid Editor</div>
         <Button 
           size="sm" 
           onClick={handleRender}
-          className="transition-transform active:scale-95"
+          className="transition-transform active:scale-95 gap-1.5"
         >
+          <Play size={14} />
           Render
         </Button>
       </div>
-      <div className="flex-1 overflow-hidden border border-border rounded-b-lg">
+      <div className="flex-1 overflow-hidden border-x border-border/30">
         <MonacoEditor
           language="markdown"
           value={code}
