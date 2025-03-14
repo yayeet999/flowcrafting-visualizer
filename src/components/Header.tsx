@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '../components/ui/button';
-import { Download, Github, Info } from 'lucide-react';
+import { Download, Github, Info, BookMarked, Code2, Sparkles } from 'lucide-react';
 import { useToast } from '../components/ui/use-toast';
 import useStore from '../lib/store';
 
@@ -83,28 +83,40 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-card border-b border-border py-3 px-4 w-full flex items-center justify-between animate-fade-in">
+    <header className="bg-gradient-to-r from-card via-card/90 to-card border-b border-border/30 py-3 px-5 w-full flex items-center justify-between animate-fade-in backdrop-blur-sm shadow-sm">
       <div className="flex items-center space-x-3">
-        <h1 className="text-xl font-semibold tracking-tight">
-          Mermaid Diagram Editor
-        </h1>
-        <span className="text-xs font-medium bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+        <div className="flex items-center gap-2.5">
+          <div className="relative">
+            <Sparkles size={28} className="text-primary" />
+            <div className="absolute -inset-1 bg-primary/20 blur-lg rounded-full -z-10 opacity-70"></div>
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            Mermaid Editor
+          </h1>
+        </div>
+        <span className="text-xs font-medium bg-primary/15 text-primary px-2.5 py-1 rounded-full border border-primary/20">
           Beta
         </span>
       </div>
       
-      <div className="flex items-center space-x-2">
-        <Button variant="outline" size="sm" onClick={handleExportCode}>
+      <div className="flex items-center gap-3">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={handleExportCode}
+          className="border-border/50 hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
+        >
+          <Code2 size={14} className="mr-1.5" />
           Export Code
         </Button>
         <Button 
           variant="default" 
           size="sm" 
           onClick={handleExportSVG}
-          className="flex items-center gap-1"
+          className="shadow-sm hover:shadow-md transition-all duration-300 bg-gradient-to-r from-primary to-accent hover:opacity-90"
         >
-          <Download size={14} />
-          <span>Export SVG</span>
+          <Download size={14} className="mr-1.5" />
+          Export SVG
         </Button>
       </div>
     </header>

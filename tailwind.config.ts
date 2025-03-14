@@ -63,6 +63,9 @@ export default {
 				'soft': '0 2px 10px rgba(0, 0, 0, 0.05)',
 				'medium': '0 4px 20px rgba(0, 0, 0, 0.08)',
 				'highlight': '0 0 0 2px rgba(59, 130, 246, 0.3)',
+				'glow': '0 0 15px rgba(59, 130, 246, 0.5)',
+				'inner-glow': 'inset 0 0 8px rgba(59, 130, 246, 0.25)',
+				'card': '0 4px 15px -3px rgba(0, 0, 0, 0.05), 0 2px 8px -2px rgba(0, 0, 0, 0.03)',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -136,6 +139,16 @@ export default {
 					'50%': {
 						transform: 'translateY(-5px)'
 					}
+				},
+				'glow-pulse': {
+					'0%, 100%': {
+						opacity: '0.6',
+						transform: 'scale(1)'
+					},
+					'50%': {
+						opacity: '1',
+						transform: 'scale(1.05)'
+					}
 				}
 			},
 			animation: {
@@ -146,8 +159,19 @@ export default {
 				'scale-in': 'scale-in 0.2s ease-out',
 				'slide-in': 'slide-in 0.3s ease-out',
 				'pulse-subtle': 'pulse-subtle 2s ease-in-out infinite',
-				'float': 'float 3s ease-in-out infinite'
-			}
+				'float': 'float 3s ease-in-out infinite',
+				'glow-pulse': 'glow-pulse 3s ease-in-out infinite'
+			},
+			fontFamily: {
+				'mono': ['JetBrains Mono', 'monospace'],
+				'sans': ['Inter', 'system-ui', 'sans-serif'],
+				'display': ['Circular', 'Inter', 'system-ui', 'sans-serif'],
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+				'gradient-subtle': 'linear-gradient(to right, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.1))',
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

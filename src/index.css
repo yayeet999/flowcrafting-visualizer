@@ -5,8 +5,8 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    --background: 210 45% 96%;
+    --foreground: 224 71% 4%;
 
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
@@ -14,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 210 100% 50%;
+    --primary: 221 83% 53%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96%;
@@ -23,7 +23,7 @@
     --muted: 210 40% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 210 40% 93%;
+    --accent: 217 91% 60%;
     --accent-foreground: 222 47% 11%;
 
     --destructive: 0 84% 60%;
@@ -31,7 +31,7 @@
 
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 221 83% 53%;
 
     --radius: 1rem;
   }
@@ -132,5 +132,29 @@
   /* Mermaid diagram styling */
   .mermaid-container svg {
     @apply drop-shadow-sm rounded-md;
+  }
+  
+  /* Glow effects */
+  .glow {
+    @apply relative;
+  }
+  
+  .glow::after {
+    @apply content-[''] absolute inset-0 -z-10 bg-gradient-to-r from-primary/20 to-accent/20 opacity-75 blur-xl rounded-xl;
+  }
+  
+  /* Gradient borders */
+  .gradient-border {
+    @apply relative rounded-xl p-[1px] bg-gradient-to-r from-primary/30 to-accent/30 before:absolute before:inset-0 before:-z-10 before:rounded-xl before:p-[2px] before:bg-gradient-to-r before:from-primary/10 before:to-accent/10;
+  }
+  
+  /* Improved buttons */
+  .icon-btn {
+    @apply flex items-center justify-center rounded-md p-2 text-muted-foreground transition-all duration-200 hover:bg-accent/10 hover:text-accent-foreground;
+  }
+  
+  /* New template card */
+  .template-card {
+    @apply relative overflow-hidden rounded-lg border border-border/60 bg-card/80 p-4 shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/30 hover:-translate-y-0.5;
   }
 }

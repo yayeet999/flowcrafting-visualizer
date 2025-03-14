@@ -52,7 +52,7 @@ const Layout: React.FC<LayoutProps> = ({ left, right, className }) => {
   return (
     <div 
       ref={containerRef}
-      className={cn("flex h-full", className)}
+      className={cn("flex h-full backdrop-blur-sm bg-gradient-to-br from-card to-card/80", className)}
     >
       {/* Left panel */}
       <div 
@@ -65,8 +65,9 @@ const Layout: React.FC<LayoutProps> = ({ left, right, className }) => {
       {/* Resizer */}
       <div 
         className={cn(
-          "resizer flex-shrink-0 z-10 h-full w-1.5 cursor-col-resize mx-1 rounded-full hover:bg-primary/50 transition-colors", 
-          isResizing ? "bg-primary/60" : "bg-border/60"
+          "resizer flex-shrink-0 z-10 h-full w-1.5 cursor-col-resize mx-1 rounded-full hover:bg-accent transition-colors relative", 
+          isResizing ? "bg-accent/80" : "bg-border/80",
+          "before:absolute before:content-[''] before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-5 before:h-12 before:rounded-md before:bg-transparent"
         )}
         onMouseDown={handleMouseDown}
       />
